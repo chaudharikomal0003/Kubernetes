@@ -1,0 +1,22 @@
+LAUNCH CLUSTER
+launch.sh
+
+HEALTH CHECK
+kubectl cluster-info
+
+FOR DEBUG PURPOSE
+kubectl cluster-info dumb
+
+LAUNCH A SINGLE NODE CLUSTER
+minikube version
+minikube start --wait=false
+
+CLUSTER INFO
+kubectl cluster-info
+kubectl get nodes
+
+DEPLOY CONTAINER
+docker -v
+kubectl create deployment first-deployment --image=katacoda/docker-http-server
+kubectl get pods
+kubectl expose deployment first-deployment --port=80 --type=NodePort
