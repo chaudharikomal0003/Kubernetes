@@ -1,0 +1,99 @@
+mkdir Demo
+cd Demo
+gedit webapplication.yml
+  (This deployment file contains below information)
+
+apiVersion: app/v1
+kind: Deployment
+metadata: 
+  name: webapp1
+  labels:
+    app: webapp-sql
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp-sql
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: webapp-sql
+        tier: frontend
+    spec:
+      containers:
+      - name: webapp1
+        image: hshar/webapp
+        ports:
+        - containerPort: 8081
+
+gedit mysqldatabase.yml
+  (This deployment file contains below information)
+
+apiVersion: app/v1
+kind: Deployment
+metadata: 
+  name: sqldb
+  labels:
+    app: webapp-sql
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp-sql
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: webapp-sql
+        tier: backend
+    spec:
+      containers:
+      - name: mysql
+        image: hshar/mysql:5.5
+        ports:
+        - containerPort: 3306
+
+kubectl apply -f webapplication.yml
+kubectl apply -f mysqldatabase.yml
+kubectl get deployment
+gedit webservice.yml
+   (This file containes the below information)
+apiVersion: v1
+kind: Service
+metadata: 
+  name: webapp-sql
+spec:
+  selector:
+    app: webapp-sql
+    tier: frontend
+  ports:
+  - port: 80
+  type: NodePort
+
+gedit mysqlservice.yml
+    (This file contains the below information)
+apiVersion: v1
+kind: Service
+metadata: 
+  name: webapp-sql
+spec:
+  selector:
+    app: webapp-sql
+    tier: backend
+  ports:
+  - port: 3306
+  clusterIP: None
+
+kubectl apply -f webservice.yml
+kubectl apply -f mysqlservice.yml
+kubectl get services
+kubectl get pods
+kubectl exec -it <container ID> bash
+   (It enters into this container)
+nano var/www/html/index.php
+  (Change the server name,password and database name)
+exit
+  (Come out of the container)
