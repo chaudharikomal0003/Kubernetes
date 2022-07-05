@@ -97,3 +97,19 @@ nano var/www/html/index.php
   (Change the server name,password and database name)
 exit
   (Come out of the container)
+
+kubectl exec -it <container id of database> bash
+mysql -u root -p(mention password here)
+CREATE DATABASE Product_Details;
+USE Product_Details;
+CREATE TABLE products (product_name VARCHAR(10), product_id VARCHAR(15));
+exit
+  (From the container)
+kubectl get services
+(copy the ip address of webappsql and open in browser)
+(Fill the details and submit the queries)
+kubectl exec -it <container id of database> bash
+mysql -u root -p(mention password here)
+USE Product_Details;
+show tables;
+select * from products
