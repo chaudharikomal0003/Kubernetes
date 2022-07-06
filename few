@@ -133,3 +133,51 @@ spec:
 
 kubectl apply -f pod1.yml
 kubectl get pods
+
+
+Creating deployment using YAML
+
+vim deployment.yml
+   (Content of the file)
+apiversion: apps/v1
+kind: deployment
+metadata:
+   name: nginx-deployment
+spec:
+   selector:
+      matchLabels:
+         app: nginx
+   replicas: 2
+   template:
+      metadata:
+          labels:
+             app: nginx
+      spec: 
+          containers:
+          - name: nginx
+            image: nginx:1.14.2
+            ports:
+            - containerPorts: 80
+
+kubectl apply -f deployment.yml
+kubectl describe deployment nginx-deployment
+kubectl get pods -l app=nginx
+kubectl expose deployment/nginx-deployment
+vim service.yml
+
+apiVersion: v1
+kind: service
+metadata:
+   name: nginx-deployment
+   labels:
+      run: nginx
+spec:
+   ports:
+   - port: 80
+     protocol: TCP
+   selector:
+     run: nginx
+
+kubectl get svc nginx-deployment
+kubectl describe svc nginx
+kubectl get ep nginx
