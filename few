@@ -113,3 +113,23 @@ mysql -u root -p(mention password here)
 USE Product_Details;
 show tables;
 select * from products
+
+*** How to use yaml file
+kubectl version --client
+minikube start
+vim pod1.yml
+   (content)
+apiVersion: v1
+kind: pod
+metadata: 
+   name: new-pod
+   labels:
+      app: web
+      env: test
+spec: 
+   containers:
+     - name: test-cont
+       image: nginx
+
+kubectl apply -f pod1.yml
+kubectl get pods
