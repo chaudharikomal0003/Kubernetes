@@ -1,0 +1,51 @@
+rhyme@ip-10-199-124-58:~$ sudo systemctl start docker
+rhyme@ip-10-199-124-58:~$ docker ps
+^C
+rhyme@ip-10-199-124-58:~$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+rhyme@ip-10-199-124-58:~$ minikube start
+\U0001f604  minikube v1.23.0 on Ubuntu 18.04
+\U0001f389  minikube 1.26.0 is available! Download it: https://github.com/kubernetes/minikube/releases/tag/v1.26.0
+\U0001f4a1  To disable this notice, run: 'minikube config set WantUpdateNotification false'
+
+\u2728  Using the docker driver based on existing profile
+\U0001f44d  Starting control plane node minikube in cluster minikube
+\U0001f69c  Pulling base image ...
+\U0001f504  Restarting existing docker container for "minikube" ...
+\U0001f433  Preparing Kubernetes v1.22.1 on Docker 20.10.8 ...
+\U0001f50e  Verifying Kubernetes components...
+    \u25aa Using image gcr.io/k8s-minikube/storage-provisioner:v5
+\U0001f31f  Enabled addons: storage-provisioner, default-storageclass
+\U0001f3c4  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+rhyme@ip-10-199-124-58:~$ kubectl get pods
+No resources found in default namespace.
+rhyme@ip-10-199-124-58:~$ 
+rhyme@ip-10-199-124-58:~$ ls 
+Desktop    Downloads  Pictures  R          Videos    kubectl         minikube
+Documents  Music      Public    Templates  k8s-proj  kubectl.sha256  snap
+rhyme@ip-10-199-124-58:~$ cd k8s-proj/
+rhyme@ip-10-199-124-58:~/k8s-proj$ touch deployment.yml
+rhyme@ip-10-199-124-58:~/k8s-proj$ ls
+deployment.yml
+rhyme@ip-10-199-124-58:~/k8s-proj$ code .
+rhyme@ip-10-199-124-58:~/k8s-proj$ 
+
+apiVersion: apps/v1
+kind: deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchlables:
+      app: nginx-app
+  replicas: 2
+  template: 
+    metadata:
+      labels: 
+        app: nginx-app
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
