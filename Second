@@ -64,7 +64,7 @@ sudo kubectl get rc
 Enable access to an appication running in your pod through nodes
 
 vi nginx_service.yml
-
+  (Content of the file)
 apiVersion: v1
 kind: Service
 metadata:
