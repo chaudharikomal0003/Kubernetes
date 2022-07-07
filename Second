@@ -59,3 +59,23 @@ sudo kubectl get pods -l app=nginx
 sudo kubectl delete pods -l app=nginx
 sudo kubectl get pods -l app=nginx
 sudo kubectl get rc
+
+
+Enable access to an appication running in your pod through nodes
+
+vi nginx_service.yml
+
+apiVersion: v1
+kind: Service
+metadata:
+	name: my-nginx-service
+spec:
+	type: NodePort
+	ports: 
+		- port: 80
+	selector: 
+		app: nginx
+
+sudo kubectl apply -f nginx_service.yml
+sudo kubectl get svc
+ifconfig
