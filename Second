@@ -79,3 +79,31 @@ spec:
 sudo kubectl apply -f nginx_service.yml
 sudo kubectl get svc
 ifconfig
+
+
+Create your first deployment in kubernetes cluster
+
+vi nginx_deployment.yml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+	name: nginx-deployment
+spec:
+	replicas: 5
+	selector: 
+		matchLabels:
+			app: newnginx
+	template:
+		metadata: 
+			labels:
+				app: newnginx
+		spec:
+			containers:
+				- name: my-nginx
+				  image: nginx
+				  ports:
+					- containerPort: 80
+
+sudo kubectl apply -f nginx_deployment.yml
+sudo kubectl get deployment
