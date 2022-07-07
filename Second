@@ -1,0 +1,31 @@
+rhyme@ip-10-199-124-1:~$ mkdir yml
+rhyme@ip-10-199-124-1:~$ cd yml
+rhyme@ip-10-199-124-1:~/yml$ vi nginx_pod.yml
+
+apiversion: v1
+kind: pod
+metadata:
+        name: my-nginx-pod
+spec:
+        containers:
+                - name: my-nginx
+                  image: nginx
+
+
+rhyme@ip-10-199-124-1:~/yml$ sudo minikube start --vm-driver=none
+rhyme@ip-10-199-124-1:~/yml$ sudo minikube start --vm-driver=none
+\U0001f604  minikube v1.2.0 on linux (amd64)
+\U0001f4a1  Tip: Use 'minikube start -p <name>' to create a new cluster, or 'minikube delete' to delete this one.
+\U0001f504  Restarting existing none VM for "minikube" ...
+\u231b  Waiting for SSH access ...
+\U0001f433  Configuring environment for Kubernetes v1.15.0 on Docker 19.03.6
+    \u25aa kubelet.resolv-conf=/run/systemd/resolve/resolv.conf
+\U0001f504  Relaunching Kubernetes v1.15.0 using kubeadm ... 
+
+\U0001f4a3  Error restarting cluster: running cmd: sudo kubeadm init phase certs all --config /var/lib/kubeadm.yaml: running command: sudo kubeadm init phase certs all --config /var/lib/kubeadm.yaml: exit status 1
+
+\U0001f63f  Sorry that minikube crashed. If this was unexpected, we would love to hear from you:
+\U0001f449  https://github.com/kubernetes/minikube/issues/new
+rhyme@ip-10-199-124-1:~/yml$ 
+sudo kubectl apply -f nginx_pod.yml
+sudo kubectl get pods
