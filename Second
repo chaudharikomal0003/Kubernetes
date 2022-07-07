@@ -33,7 +33,7 @@ sudo kubectl get pods
 
 create and deploy replication controller in your cluster
 vi nginx_rc.yml
-
+   (Content of the file)
 apiversion: v1
 kind: ReplicationController
 metadata:
