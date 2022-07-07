@@ -107,3 +107,48 @@ spec:
 
 sudo kubectl apply -f nginx_deployment.yml
 sudo kubectl get deployment
+
+
+Perform rolling updates and rollbacks in kubernetes
+
+vi nginx_deployment.yml
+vi nginx_service.yml
+
+apiVersion: v1
+kind: Service
+metadata:
+	name: my-nginx-service
+spec:
+	type: NodePort
+	ports: 
+		- port: 80
+	selector: 
+		app: newnginx
+
+sudo kubectl apply -f nginx_service.yml
+sudo kubectl get svc
+vi nginx_deployment.yml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+	name: nginx-deployment
+spec:
+	replicas: 5
+	selector: 
+		matchLabels:
+			app: newnginx
+	template:
+		metadata: 
+			labels:
+				app: newnginx
+		spec:
+			containers:
+				- name: my-nginx
+				  image: anjucoursera1/nginxcourseraapp
+				  ports:
+					- containerPort: 80
+
+sudo kubectl apply -f nginx_deployment.yml
+sudo kubectl rollout history deploy nginx_deployment
+sudo kubectl rollout rundo deploy nginx-deployment --to-revision=1
