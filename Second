@@ -29,3 +29,33 @@ rhyme@ip-10-199-124-1:~/yml$ sudo minikube start --vm-driver=none
 rhyme@ip-10-199-124-1:~/yml$ 
 sudo kubectl apply -f nginx_pod.yml
 sudo kubectl get pods
+
+
+create and deploy replication controller in your cluster
+vi nginx_rc.yml
+
+apiversion: v1
+kind: ReplicationController
+metadata:
+	name: my-nginx-rc
+spec:
+	replicas: 10
+	selector: 
+		app: nginx
+	template:
+		metadata:
+			name: my-nginx-pod
+			labels: 
+				app: nginx
+		spec:
+			containers:
+				- name: nginx
+				  image: nginx
+
+
+sudo kubectl apply -f nginx_rc.yml
+sudo kubectl get rc
+sudo kubectl get pods -l app=nginx
+sudo kubectl delete pods -l app=nginx
+sudo kubectl get pods -l app=nginx
+sudo kubectl get rc
