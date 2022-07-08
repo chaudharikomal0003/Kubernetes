@@ -1,0 +1,13 @@
+git clone https://github.com/GoogleCloudPlatform/kubernetes-engine-samples
+cd kubernetes-engine-samples/hello-app
+docker build -t REGION-docker.pkg.dev/${PROJECT_ID}/hello-repo/hello-app:v1 .
+docker images
+docker run --rm -p 8080:8080 REGION-docker.pkg.dev/${PROJECT_ID}/hello-repo/hello-app:v1
+curl http://localhost:8080
+gcloud auth configure-docker REGION-docker.pkg.dev
+docker push REGION-docker.pkg.dev/${PROJECT_ID}/hello-repo/hello-app:v1
+gcloud config set compute/zone COMPUTE_ZONE
+gcloud config set compute/region COMPUTE_REGION
+gcloud container clusters create hello-cluster
+gcloud container clusters create-auto hello-cluster
+kubectl get nodes
