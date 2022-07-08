@@ -30,3 +30,76 @@ gcloud artifacts docker images delete \
 gcloud artifacts docker images delete \
     REGION-docker.pkg.dev/${PROJECT_ID}/hello-repo/hello-app:v2 \
     --delete-tags --quiet
+
+
+kubectl apply -f webservice.yml
+kubectl apply -f mysqlservice.yml
+kubectl get services
+kubectl get pods
+kubectl exec -it <container ID> bash
+   (It enters into this container)
+nano var/www/html/index.php
+  (Change the server name,password and database name)
+exit
+  (Come out of the container)
+
+kubectl exec -it <container id of database> bash
+mysql -u root -p(mention password here)
+CREATE DATABASE Product_Details;
+USE Product_Details;
+CREATE TABLE products (product_name VARCHAR(10), product_id VARCHAR(15));
+exit
+  (From the container)
+kubectl get services
+(copy the ip address of webappsql and open in browser)
+(Fill the details and submit the queries)
+kubectl exec -it <container id of database> bash
+mysql -u root -p(mention password here)
+USE Product_Details;
+show tables;
+select * from products
+
+*** How to use yaml file
+kubectl version --client
+minikube start
+vim pod1.yml
+   (content)
+apiVersion: v1
+kind: pod
+metadata: 
+   name: new-pod
+   labels:
+      app: web
+      env: test
+spec: 
+   containers:
+     - name: test-cont
+       image: nginx
+
+kubectl apply -f pod1.yml
+kubectl get pods
+
+
+Creating deployment using YAML
+
+vim deployment.yml
+   (Content of the file)
+apiversion: apps/v1
+kind: deployment
+metadata:
+   name: nginx-deployment
+spec:
+   selector:
+      matchLabels:
+         app: nginx
+   replicas: 2
+   template:
+      metadata:
+          labels:
+             app: nginx
+      spec: 
+          containers:
+          - name: nginx
+            image: nginx:1.14.2
+            ports:
+            - containerPorts: 80
