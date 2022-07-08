@@ -72,3 +72,17 @@ kubectl set image deployment/nginx-deployment nginx=nginx:sometag
 kubectl get rs
 kubectl get deploy
 kubectl get rs
+kubectl get deploy
+kubectl get rs
+kubectl rollout pause deployment/nginx-deployment
+kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
+kubectl rollout history deployment/nginx-deployment
+kubectl get rs
+kubectl set resources deployment/nginx-deployment -c=nginx --limits=cpu=200m,memory=512Mi
+kubectl rollout resume deployment/nginx-deployment
+kubectl get rs -w
+kubectl get rs
+kubectl rollout status deployment/nginx-deployment
+kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
+kubectl describe deployment nginx-deployment
+kubectl rollout status deployment/nginx-deployment
