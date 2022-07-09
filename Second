@@ -1,3 +1,4 @@
+
 rhyme@ip-10-199-124-1:~$ mkdir yml
 rhyme@ip-10-199-124-1:~$ cd yml
 rhyme@ip-10-199-124-1:~/yml$ vi nginx_pod.yml
