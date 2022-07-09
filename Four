@@ -33,6 +33,7 @@ gcloud artifacts docker images delete \
     --delete-tags --quiet
 
 
+
 kubectl apply -f webservice.yml
 kubectl apply -f mysqlservice.yml
 kubectl get services
