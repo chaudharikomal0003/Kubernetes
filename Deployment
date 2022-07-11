@@ -42,3 +42,4 @@ spec:
 
 kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
 kubectl get deployments
+kubectl rollout status deployment/nginx-deployment.
