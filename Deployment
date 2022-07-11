@@ -41,3 +41,4 @@ spec:
         - containerPort: 80
 
 kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
+kubectl get deployments
